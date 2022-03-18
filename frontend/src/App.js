@@ -32,20 +32,22 @@ function App() {
     setImages(images.filter((image) => image.id !== id));
   };
 
+  const Gallery = () => {
+    return (
+      <Container className="mt-4">
+        <Row xs={1} md={2} lg={3}>
+          {images.map((image, i) => (
+            <Col key={i} className="pb-3">
+              <ImageCard imageData={image} handleDelete={handleDeleteImage} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    );
+  };
+
   const Content = () => {
-    if (images.length)
-      return (
-        <Container className="mt-4">
-          <Row xs={1} md={2} lg={3}>
-            {images.map((image, i) => (
-              <Col key={i} className="pb-3">
-                <ImageCard imageData={image} handleDelete={handleDeleteImage} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      );
-    return <Welcome />;
+    return images.length ? <Gallery /> : <Welcome />;
   };
 
   return (
