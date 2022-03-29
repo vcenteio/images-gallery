@@ -11,7 +11,9 @@ UNSPLASH_URL = "https://api.unsplash.com/photos/random"
 UNSPLASH_KEY = os.environ.get("UNSPLASH_KEY")
 
 if not UNSPLASH_KEY:
-    raise EnvironmentError("Please create a .env.local file and add a Unsplash API key")
+    raise EnvironmentError(
+        "Please create a .env.local file and add a Unsplash API key"
+    )
 
 app = Flask(__name__)
 CORS(app)
@@ -20,7 +22,10 @@ CORS(app)
 @app.route("/new-image")
 def new_image():
     word = request.args.get("query")
-    headers = {"Authorization": f"Client-ID {UNSPLASH_KEY}", "Accept-Version": "v1"}
+    headers = {
+        "Authorization": f"Client-ID {UNSPLASH_KEY}",
+        "Accept-Version": "v1",
+    }
     payload = {"query": word}
     response = rq.get(url=UNSPLASH_URL, headers=headers, params=payload)
     return response.json()
