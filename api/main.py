@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask, request
+from flask_cors import CORS
 import requests as rq
 from dotenv import load_dotenv
 
@@ -13,6 +14,7 @@ if not UNSPLASH_KEY:
     raise EnvironmentError("Please create a .env.local file and add a Unsplash API key")
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route("/new-image")
