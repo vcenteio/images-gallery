@@ -7,5 +7,5 @@ if $(docker ps -a | grep $image_name); then
     docker container start image_name
 else
     echo "DOCKER_RUN: Container does not exist. Creating container..."
-    docker run -rm -p 5000:5000 $image_name
+    docker run --rm -p 5000:5000 $image_name
 fi
