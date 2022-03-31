@@ -1,13 +1,11 @@
-FROM python:alpine
+FROM python:3.9.12-buster
 
 WORKDIR /app
 
 EXPOSE 5000
 
-COPY requirements.txt /app/
-
-RUN pip install -r requirements.txt
-
 COPY . /app/
 
-CMD ["flask", "run"]
+RUN pip install poetry && poetry install --no-root --no-dev;
+
+CMD ["poetry", "run", "flask", "run"]
