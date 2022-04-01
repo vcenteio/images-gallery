@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import Search from "./components/Search";
-import ImageCard from "./components/ImageCard";
 import Welcome from "./components/Welcome";
-import { Container, Row, Col } from "react-bootstrap";
+import Gallery from "./components/Gallery";
 import axios from "axios";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -43,22 +42,12 @@ function App() {
     setImages(images.filter((image) => image.id !== id));
   };
 
-  const Gallery = () => {
-    return (
-      <Container className="mt-4">
-        <Row xs={1} md={2} lg={3}>
-          {images.map((image, i) => (
-            <Col key={i} className="pb-3">
-              <ImageCard imageData={image} handleDelete={handleDeleteImage} />
-            </Col>
-          ))}
-        </Row>
-      </Container>
-    );
-  };
-
   const Content = () => {
-    return images.length ? <Gallery /> : <Welcome />;
+    return images.length ? (
+      <Gallery images={images} handleDeleteImage={handleDeleteImage} />
+    ) : (
+      <Welcome />
+    );
   };
 
   return (
