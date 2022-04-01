@@ -56,3 +56,12 @@ def images():
         image["saved"] = True
         inserted_id = images_collection.insert_one(image).inserted_id
         return {"inserted_id": inserted_id}
+
+
+@app.route("/images/<image_id>", methods=["DELETE"])
+def image(image_id: str):
+    delete_result = images_collection.delete_one({"_id": image_id})
+    if not delete_result:
+        return ("Internal Error: message could not be deleted", 500)
+    deleted_count = delete_result.deleted_count
+    return {"deleted_id": image_id} if deleted_count else ("Not found", 404)
