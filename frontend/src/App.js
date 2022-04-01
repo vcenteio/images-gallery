@@ -49,7 +49,12 @@ function App() {
         `${API_URL}${IMAGES_ENDPOINT}`,
         imageToBeSaved
       );
-      console.log(serverResponse);
+      if (serverResponse.data.inserted_id) {
+        const updatedImages = images.map((image) =>
+          image._id === _id ? { ...image, saved: true } : image
+        );
+        setImages(updatedImages);
+      }
     } catch (error) {
       console.log(error);
     }

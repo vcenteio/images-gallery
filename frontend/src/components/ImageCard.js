@@ -19,13 +19,15 @@ function ImageCard({ imageData, handleDelete, handleSave }) {
         <Button variant="primary" onClick={() => handleDelete(imageData._id)}>
           Delete
         </Button>
-        <Button
-          variant="secondary"
-          className="mx-1"
-          onClick={() => handleSave(imageData._id)}
-        >
-          Save
-        </Button>
+        {!imageData.saved && (
+          <Button
+            variant="secondary"
+            className="mx-1"
+            onClick={() => handleSave(imageData._id)}
+          >
+            Save
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );
