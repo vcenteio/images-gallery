@@ -38,8 +38,19 @@ function App() {
     setWord("");
   };
 
-  const handleDeleteImage = (_id) => {
-    setImages(images.filter((image) => image._id !== _id));
+  const handleDeleteImage = async (_id) => {
+    const serverResponse = await axios.delete(
+      `${API_URL}${IMAGES_ENDPOINT}/${_id}`
+    );
+    try {
+      if (serverResponse.status === 200) {
+        setImages(images.filter((image) => image._id !== _id));
+      } else {
+        console.log(serverResponse.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSaveImage = async (_id) => {
