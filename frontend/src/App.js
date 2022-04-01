@@ -38,8 +38,8 @@ function App() {
     setWord("");
   };
 
-  const handleDeleteImage = (id) => {
-    setImages(images.filter((image) => image.id !== id));
+  const handleDeleteImage = (_id) => {
+    setImages(images.filter((image) => image._id !== _id));
   };
 
   const Content = () => {

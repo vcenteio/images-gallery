@@ -16,7 +16,7 @@ function ImageCard({ imageData, handleDelete }) {
       <Card.Body>
         <Card.Title>{getDescription()}</Card.Title>
         <Card.Text>Created by {imageData.user.name}</Card.Text>
-        <Button variant="primary" onClick={() => handleDelete(imageData.id)}>
+        <Button variant="primary" onClick={() => handleDelete(imageData._id)}>
           Delete
         </Button>
       </Card.Body>
