@@ -53,5 +53,6 @@ def images():
             image["_id"] = image.pop("id")
         except KeyError:
             pass
+        image["saved"] = True
         inserted_id = images_collection.insert_one(image).inserted_id
         return {"inserted_id": inserted_id}
