@@ -36,7 +36,9 @@ def new_image():
     }
     payload = {"query": word}
     response = rq.get(url=UNSPLASH_URL, headers=headers, params=payload)
-    return response.json()
+    image = response.json()
+    image["_id"] = image.pop("id")
+    return image
 
 
 @app.route("/images", methods=["GET", "POST"])
@@ -47,6 +49,9 @@ def images():
     elif request.method == "POST":
         # convert request payload to dict
         image = request.get_json()  # assume request payload is json
-        image["_id"] = image.pop("id")
+        try:
+            image["_id"] = image.pop("id")
+        except KeyError:
+            pass
         inserted_id = images_collection.insert_one(image).inserted_id
         return {"inserted_id": inserted_id}
