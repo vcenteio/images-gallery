@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
-function ImageCard({ imageData, handleDelete }) {
+function ImageCard({ imageData, handleDelete, handleSave }) {
   const getDescription = () => {
     return (imageData.description || imageData.alt_description)
       .split(" ")
@@ -18,6 +18,13 @@ function ImageCard({ imageData, handleDelete }) {
         <Card.Text>Created by {imageData.user.name}</Card.Text>
         <Button variant="primary" onClick={() => handleDelete(imageData._id)}>
           Delete
+        </Button>
+        <Button
+          variant="secondary"
+          className="mx-1"
+          onClick={() => handleSave(imageData._id)}
+        >
+          Save
         </Button>
       </Card.Body>
     </Card>

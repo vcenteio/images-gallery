@@ -42,9 +42,26 @@ function App() {
     setImages(images.filter((image) => image._id !== _id));
   };
 
+  const handleSaveImage = async (_id) => {
+    const imageToBeSaved = images.find((image) => image._id === _id);
+    try {
+      const serverResponse = await axios.post(
+        `${API_URL}${IMAGES_ENDPOINT}`,
+        imageToBeSaved
+      );
+      console.log(serverResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const Content = () => {
     return images.length ? (
-      <Gallery images={images} handleDeleteImage={handleDeleteImage} />
+      <Gallery
+        images={images}
+        handleDeleteImage={handleDeleteImage}
+        handleSaveImage={handleSaveImage}
+      />
     ) : (
       <Welcome />
     );
