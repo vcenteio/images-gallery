@@ -5,7 +5,11 @@ import { Nav } from "react-bootstrap";
 
 function ImageCard({ imageData, handleDelete, handleSave }) {
   const getDescription = () => {
-    return (imageData.description || imageData.alt_description)
+    return (
+      imageData.description ||
+      imageData.alt_description ||
+      imageData.title
+    )
       .split(" ")
       .map((word) => word[0].toUpperCase() + word.slice(1))
       .join(" ");
