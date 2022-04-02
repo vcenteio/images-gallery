@@ -5,6 +5,7 @@ import Search from "./components/Search";
 import Welcome from "./components/Welcome";
 import Gallery from "./components/Gallery";
 import axios from "axios";
+import Spinner from "./components/Spinner";
 
 const API_URL = process.env.REACT_APP_API_URL;
 const RANDOM_IMAGE_ENDPOINT = "/new-image";
@@ -13,11 +14,13 @@ const IMAGES_ENDPOINT = "/images";
 function App() {
   const [word, setWord] = useState("");
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getSavedImages = async () => {
     try {
       const serverResponse = await axios.get(`${API_URL}${IMAGES_ENDPOINT}`);
       setImages(serverResponse.data || []);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -86,8 +89,16 @@ function App() {
   return (
     <div>
       <Header title="Images Gallery" />
-      <Search word={word} setWord={setWord} handleSubmit={handleSearchSubmit} />
-      <Content />
+      {(!loading && (
+        <div>
+          <Search
+            word={word}
+            setWord={setWord}
+            handleSubmit={handleSearchSubmit}
+          />
+          <Content />
+        </div>
+      )) || <Spinner />}
     </div>
   );
 }
