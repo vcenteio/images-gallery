@@ -6,6 +6,8 @@ import Welcome from "./components/Welcome";
 import Gallery from "./components/Gallery";
 import axios from "axios";
 import Spinner from "./components/Spinner";
+import Toast from "./components/Toast";
+import { toast } from "react-toastify";
 
 const API_URL = process.env.REACT_APP_API_URL;
 const RANDOM_IMAGE_ENDPOINT = "/new-image";
@@ -21,8 +23,9 @@ function App() {
       const serverResponse = await axios.get(`${API_URL}${IMAGES_ENDPOINT}`);
       setImages(serverResponse.data || []);
       setLoading(false);
+      toast.success("Saved images downloaded");
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -35,8 +38,9 @@ function App() {
         `${API_URL}${RANDOM_IMAGE_ENDPOINT}?query=${word}`
       );
       setImages([{ ...serverResponse.data, title: word }, ...images]);
+      toast.info(`New image ${word} was found`);
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
     setWord("");
   };
@@ -48,11 +52,12 @@ function App() {
       );
       if (serverResponse.status === 200) {
         setImages(images.filter((image) => image._id !== _id));
+        toast.warn(`Image was deleted`);
       } else {
         console.log(serverResponse.data);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -68,9 +73,10 @@ function App() {
           image._id === _id ? { ...image, saved: true } : image
         );
         setImages(updatedImages);
+        toast.info(`Image ${imageToBeSaved.title} was saved`);
       }
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     }
   };
 
@@ -99,6 +105,7 @@ function App() {
           <Content />
         </div>
       )) || <Spinner />}
+      <Toast />
     </div>
   );
 }
