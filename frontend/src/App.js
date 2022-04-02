@@ -42,10 +42,10 @@ function App() {
   };
 
   const handleDeleteImage = async (_id) => {
-    const serverResponse = await axios.delete(
-      `${API_URL}${IMAGES_ENDPOINT}/${_id}`
-    );
     try {
+      const serverResponse = await axios.delete(
+        `${API_URL}${IMAGES_ENDPOINT}/${_id}`
+      );
       if (serverResponse.status === 200) {
         setImages(images.filter((image) => image._id !== _id));
       } else {
