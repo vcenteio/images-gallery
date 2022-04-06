@@ -21,6 +21,7 @@ services:
     ports:
       - "27017:27017"
     environment:
+      # This is for learning purposes. One should never include sensitive data on a public repository.
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: strong-db-password
     volumes:
@@ -31,9 +32,9 @@ services:
     ports:
       - "8081:8081"
     environment:
+      # This is for learning purposes. One should never include sensitive data on a public repository.
       ME_CONFIG_MONGODB_ADMINUSERNAME: root
       ME_CONFIG_MONGODB_ADMINPASSWORD: strong-db-password
-      # E_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
       ME_CONFIG_MONGODB_SERVER: mongo
     depends_on:
       - mongo
